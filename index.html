@@ -13,7 +13,7 @@
             // This needs to point to the web socket in the Node-RED flow
             // ... in this case it's ws/simple
             wsUri += "//" + loc.host + loc.pathname.replace("simple","ws/simple");
-
+            console.log(loc.host);
             function wsConnect() {
                 console.log("connect",wsUri);
                 ws = new WebSocket(wsUri);
