@@ -6,7 +6,7 @@ var ws;
         // This needs to point to the web socket in the Node-RED flow
         // ... in this case it's ws/simple
         //wsUri += "//" + loc.host + loc.pathname.replace("simple","ws/simple");
-        wsUri += "//192.168.1.151:1880/ws/simple";
+        wsUri += "//localhost:1880/ws/simple";
         
         function wsConnect() {
             console.log("connect",wsUri);
@@ -58,7 +58,7 @@ var ws;
             $('#last').html(l);
             $('#until').html(u);
 
-            convertImage(client.photo);
+            convertImage(client.photo.data);
 
             $('#msg-card').hide();
             $('#card').fadeIn("slow");
