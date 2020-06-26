@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>CRC-Acceso</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    
+</head>
+<body onload="wsConnect();" onunload="ws.disconnect();">    
+        <div class="modal-dialog modal-dialog-centered mt-0" style="display: none;" id="card">
+            <div class="card">
+                <div id="photo" class="img"></div>
+                <div class="card-body text-center">
+                    <h4 id="name" class="card-title">John Doe</h4>
+                    <span id="category" class="badge badge-pill badge-primary p-2">Web Designer</span>
+                    <table class="mt-3 w-100">
+                        <tbody>
+                            <tr><th>Socio Nº:</th><td class="spacer"></td><td id="number" class="td-data">123456</td></tr>
+                            <tr><th>DNI: </th><td class="spacer"></td><td id="dni" class="td-data">10.000.000</td></tr>
+                            <tr><th>Último pago:</th><td class="spacer"></td><td id="last" class="td-data">01/2020</td></tr>
+                            <tr><th>Hasta:</th><td class="spacer"></td><td id="until" class="td-data">01/2021</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal-dialog modal-dialog-centered my-0 h-100" id="msg-card">
+            <div class="alert alert-dark mx-auto text-center" role="alert">
+                <h3>Bienvenido!</h3>
+                Pase la tarjeta por el lector
+            </div>
+        </div>
+        <div class="info-bar">
+            <div id="messages"></div>
+            <div id="status"><span class="badge badge-warning text-warning">0</span> unknown</div>
+        </div>
+
+
+</body>
+</html>
