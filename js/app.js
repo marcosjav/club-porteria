@@ -19,7 +19,9 @@ var ws;
                     json = JSON.parse(msg.data);
                     //console.log(json);
                 } catch (error) {
-                    //console.log("ERROR - JsonParse");
+                    if (msg.data === "wait") {
+                        $('#message-alert').html("por favor espere...");
+                    }
                 }
                 if (json){
                     client = json;
@@ -61,13 +63,19 @@ var ws;
             convertImage(client.photo.data);
 
             $('#msg-card').hide();
-            $('#card').fadeIn("slow");
+            //$('#card').fadeIn("slow");
+            
+            $.when($('#card').fadeIn(500))
+                        .done(function() {
+                $('#message-alert').html('<h3>Bienvenido!</h3>Pase la tarjeta por el lector');
+            });
+            
             setTimeout(function() { 
                 //$('#card').fadeOut("slow");
-             $.when($('#card').fadeOut(500))
-                                        .done(function() {
-                $('#msg-card').show();
-            });
+                $.when($('#card').fadeOut(500))
+                                            .done(function() {
+                    $('#msg-card').show();
+                });
              }, 3500);
 
         }
