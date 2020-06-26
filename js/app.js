@@ -1,7 +1,7 @@
 var ws;
         var wsUri = "ws:";
         //var loc = window.location;
-        //console.log(loc);
+        ////console.log(loc);
         //if (loc.protocol === "https:") { wsUri = "wss:"; }
         // This needs to point to the web socket in the Node-RED flow
         // ... in this case it's ws/simple
@@ -9,17 +9,17 @@ var ws;
         wsUri += "//localhost:1880/ws/simple";
         
         function wsConnect() {
-            console.log("connect",wsUri);
+            //console.log("connect",wsUri);
             ws = new WebSocket(wsUri);
             //var line = "";    // either uncomment this for a building list of messages
             ws.onmessage = function(msg) {
-                console.log(msg);
+                //console.log(msg);
                 let json;
                 try {
                     json = JSON.parse(msg.data);
-                    console.log(json);
+                    //console.log(json);
                 } catch (error) {
-                    console.log("ERROR - JsonParse");
+                    //console.log("ERROR - JsonParse");
                 }
                 if (json){
                     client = json;
@@ -30,7 +30,7 @@ var ws;
                 // update the status div with the connection status
                 document.getElementById('status').innerHTML = '<span class="badge badge-success text-success">0</span> connected';
                 //ws.send("Open for data");
-                console.log("connected");
+                //console.log("connected");
             }
             ws.onclose = function() {
                 // update the status div with the connection status
@@ -86,7 +86,7 @@ var ws;
 
             let base64 = window.btoa(data);
 
-            console.log(base64);
+            //console.log(base64);
             $('#photo').css({
                 'background-image':'url("data:image/png;base64,' + base64 + '")',
                 'background-repeat':'no-repeat',
