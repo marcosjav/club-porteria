@@ -1,4 +1,5 @@
 var ws;
+var timer;
 var wsUri = "ws://localhost:1880/ws/simple"; // PROD
 //var wsUri = "ws://192.168.1.151:1880/ws/simple"; // DEV
 
@@ -33,6 +34,11 @@ function wsConnect() {
         document.getElementById('status').innerHTML = '<span class="badge badge-danger text-danger">0</span> not connected';
         // in case of lost connection tries to reconnect every 3 secs
         setTimeout(wsConnect,3000);
+    }
+    ws.onerror = function(error) {
+        console.log(error);
+        // if isn't production, try to connect to development
+        wsUri = "ws://192.168.1.151:1880/ws/simple";
     }
 }
 
@@ -69,20 +75,29 @@ function addClient(client){
     convertImage(client.photo.data);
 
     $('#msg-card').hide();
-    //$('#card').fadeIn("slow");
-    
+
     $.when($('#card').fadeIn(500))
                 .done(function() {
         $('#message-alert').html('<h3>Bienvenido!</h3>Pase la tarjeta por el lector');
     });
+
+    if(!timer || timer.finished){
+        timer = new Timer(function() { // init timer with 5 seconds
+            $.when($('#card').fadeOut(500)).done(function() {
+                        $('#msg-card').show();
+                    });
+        }, 6500);
+    } else {
+        timer.setTime(6500); // add two seconds
+    }
     
-    setTimeout(function() { 
-        //$('#card').fadeOut("slow");
-        $.when($('#card').fadeOut(500))
-                                    .done(function() {
-            $('#msg-card').show();
-        });
-     }, 6500);
+    //setTimeout(function() { 
+    //    //$('#card').fadeOut("slow");
+    //    $.when($('#card').fadeOut(500))
+    //                                .done(function() {
+    //        $('#msg-card').show();
+    //    });
+    // }, 6500);
 
 }
 
@@ -106,6 +121,9 @@ function addHistory(client){
     row.append(h)
         .append(s)
         .append(n);
+
+    if (!client.enter)
+        row.addClass('text-denegado');
 
     row.hide();
 

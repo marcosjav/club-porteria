@@ -20,6 +20,9 @@ td {
 .font-size-access {
   font-size: 2rem;
 }
+.text-denegado {
+  color: #7b0000!important;
+}
 body {
   height: 100vh;
   width: 100vw;
