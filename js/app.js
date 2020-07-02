@@ -82,7 +82,7 @@ function addClient(client){
                                     .done(function() {
             $('#msg-card').show();
         });
-     }, 3500);
+     }, 6500);
 
 }
 
