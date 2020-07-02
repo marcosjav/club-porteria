@@ -1,6 +1,6 @@
 var ws;
 var wsUri = "ws://localhost:1880/ws/simple"; // PROD
-//var wsUri = "ws://192.168.1.149:1880/ws/simple"; // DEV
+//var wsUri = "ws://192.168.1.151:1880/ws/simple"; // DEV
 
 function wsConnect() {
     //console.log("connect",wsUri);
@@ -54,6 +54,17 @@ function addClient(client){
     $('#last').html(l);
     $('#until').html(u);
     $('#payment').html(client.status);
+    $('#message').html(client.message);
+
+    if (client.enter){
+        $('#enter').removeClass('badge-danger');
+        $('#enter').addClass('badge-success');
+        $('#enter').html("PERMITIDO");
+    } else {
+        $('#enter').removeClass('badge-danger');
+        $('#enter').addClass('badge-success');
+        $('#enter').html("DENEGADO");
+    }
 
     convertImage(client.photo.data);
 
