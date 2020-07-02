@@ -61,8 +61,8 @@ function addClient(client){
         $('#enter').addClass('badge-success');
         $('#enter').html("PERMITIDO");
     } else {
-        $('#enter').removeClass('badge-danger');
-        $('#enter').addClass('badge-success');
+        $('#enter').removeClass('badge-success');
+        $('#enter').addClass('badge-danger');
         $('#enter').html("DENEGADO");
     }
 
