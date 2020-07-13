@@ -12,7 +12,18 @@ function wsConnect() {
         let json;
         try {
             json = JSON.parse(msg.data);
-            //console.log(json);
+            // console.log(json);
+            if (jQuery.isEmptyObject(json)){
+                json = false;
+                $('#message-alert').html("Tarjeta no válida");
+
+                timer = new Timer(function() { // init timer with 5 seconds
+                        $.when($('#message-alert').fadeOut(500)).done(function() {
+                                resetMsgCard();
+                                $('#message-alert').fadeIn(500);
+                            });
+                         }, 3000);
+            }
         } catch (error) {
             if (msg.data === "wait") {
                 $('#message-alert').html("por favor espere...");
@@ -38,7 +49,7 @@ function wsConnect() {
     ws.onerror = function(error) {
         console.log(error);
         // if isn't production, try to connect to development
-        wsUri = "ws://192.168.1.151:1880/ws/simple";
+        wsUri = "ws://192.168.1.169:1880/ws/simple";
     }
 }
 
@@ -60,44 +71,39 @@ function addClient(client){
     $('#last').html(l);
     $('#until').html(u);
     $('#payment').html(client.status);
-    $('#message').html(client.message);
+    // $('#message').html(client.message); // CHANGED TO HIDDEN
 
     if (client.enter){
         $('#enter').removeClass('badge-danger');
         $('#enter').addClass('badge-success');
-        $('#enter').html("PERMITIDO");
+        // $('#enter').html("PERMITIDO"); // CHANGED TO SHOW CLIENT.MESSAGE
     } else {
         $('#enter').removeClass('badge-success');
         $('#enter').addClass('badge-danger');
-        $('#enter').html("DENEGADO");
+        // $('#enter').html("DENEGADO"); // CHANGED TO SHOW CLIENT MESSAGE
     }
+    $('#enter').html(client.message);
 
     convertImage(client.photo.data);
 
     $('#msg-card').hide();
 
+    // SHOW CLIENT CARD
     $.when($('#card').fadeIn(500))
                 .done(function() {
-        $('#message-alert').html('<h3>Bienvenido!</h3>Pase la tarjeta por el lector');
+        resetMsgCard();
     });
 
     if(!timer || timer.finished){
+        // HIDE CARD AFTER...
         timer = new Timer(function() { // init timer with 5 seconds
             $.when($('#card').fadeOut(500)).done(function() {
                         $('#msg-card').show();
                     });
-        }, 6500);
+                 }, 6500);
     } else {
         timer.setTime(6500); // add two seconds
     }
-    
-    //setTimeout(function() { 
-    //    //$('#card').fadeOut("slow");
-    //    $.when($('#card').fadeOut(500))
-    //                                .done(function() {
-    //        $('#msg-card').show();
-    //    });
-    // }, 6500);
 
 }
 
@@ -161,4 +167,8 @@ function convertImage(bytesArray){
         'width':'350px',
         'height':'350px'
         });
+}
+
+function resetMsgCard(){
+    $('#message-alert').html('<h3>Bienvenido!</h3>Pase la tarjeta por el lector');
 }
