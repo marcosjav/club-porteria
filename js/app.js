@@ -36,13 +36,13 @@ function wsConnect() {
     }
     ws.onopen = function() {
         // update the status div with the connection status
-        document.getElementById('status').innerHTML = '<span class="badge badge-success text-success">0</span> connected';
+        document.getElementById('status').innerHTML = '<span class="badge badge-success"><h6>Conectado</h6></span>';
         //ws.send("Open for data");
         //console.log("connected");
     }
     ws.onclose = function() {
         // update the status div with the connection status
-        document.getElementById('status').innerHTML = '<span class="badge badge-danger text-danger">0</span> not connected';
+        document.getElementById('status').innerHTML = '<span class="badge badge-danger"><h2>Sin conexión con el servidor</h2></span>';
         // in case of lost connection tries to reconnect every 3 secs
         setTimeout(wsConnect,3000);
     }
@@ -54,7 +54,7 @@ function wsConnect() {
 }
 
 function doit(m) {
-    if (ws) { ws.send(m); }
+    if (ws && ws.readyState == 1 && m !== '') { ws.send(m); }
 }
 
 function addClient(client){
@@ -172,3 +172,25 @@ function convertImage(bytesArray){
 function resetMsgCard(){
     $('#message-alert').html('<h3>Bienvenido!</h3>Pase la tarjeta por el lector');
 }
+
+function sendNumber() {
+    doit(document.getElementById("member-number").value);
+    console.log(document.getElementById("member-number").value);
+    document.getElementById("member-number").value = '';
+}
+
+// self executing function here
+(function() {
+    // your page initialization code here
+    // the DOM will be available here
+    var input = document.getElementById("member-number");
+    input.addEventListener("keyup", function(event) {
+      if (event.code === "Enter") {
+       event.preventDefault();
+       doit(input.value);
+       console.log(input.value);
+       input.value = '';
+      }
+    });
+
+ })();
