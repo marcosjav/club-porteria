@@ -42,7 +42,7 @@ function wsConnect() {
     }
     ws.onclose = function() {
         // update the status div with the connection status
-        document.getElementById('status').innerHTML = '<span class="badge badge-danger"><h2>Sin conexión con el servidor</h2></span>';
+        document.getElementById('status').innerHTML = '<span class="badge badge-danger"><h3>Fallo en la red. Sin conexión con base de datos</h3></span>';
         // in case of lost connection tries to reconnect every 3 secs
         setTimeout(wsConnect,3000);
     }
@@ -185,7 +185,7 @@ function sendNumber() {
     // the DOM will be available here
     var input = document.getElementById("member-number");
     input.addEventListener("keyup", function(event) {
-      if (event.code === "Enter") {
+      if (event.code === "Enter" || event.code === "NumpadEnter") {
        event.preventDefault();
        doit(input.value);
        console.log(input.value);
