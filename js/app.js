@@ -12,7 +12,7 @@ function wsConnect() {
         let json;
         try {
             json = JSON.parse(msg.data);
-            // console.log(json);
+            console.log(json);
             if (jQuery.isEmptyObject(json)){
                 json = false;
                 $('#message-alert').html("Tarjeta no válida");
@@ -25,8 +25,16 @@ function wsConnect() {
                          }, 3000);
             }
         } catch (error) {
-            if (msg.data === "wait") {
-                $('#message-alert').html("por favor espere...");
+            switch (msg.data) {
+                case "wait":
+                    $('#message-alert').html("por favor espere...");
+                    break;
+                case "ok":
+                    document.getElementById('status').innerHTML = '<span class="badge badge-success"><h6>Conectado</h6></span>';
+                    break;
+                case "disconnected":
+                    document.getElementById('status').innerHTML = '<span class="badge badge-danger"><h3>Fallo en la red. Sin conexión con base de datos</h3></span>';
+                    break;
             }
         }
         if (json){
@@ -36,13 +44,13 @@ function wsConnect() {
     }
     ws.onopen = function() {
         // update the status div with the connection status
-        document.getElementById('status').innerHTML = '<span class="badge badge-success"><h6>Conectado</h6></span>';
+        //document.getElementById('status').innerHTML = '<span class="badge badge-success"><h6>Conectado</h6></span>';
         //ws.send("Open for data");
         //console.log("connected");
     }
     ws.onclose = function() {
         // update the status div with the connection status
-        document.getElementById('status').innerHTML = '<span class="badge badge-danger"><h3>Fallo en la red. Sin conexión con base de datos</h3></span>';
+        
         // in case of lost connection tries to reconnect every 3 secs
         setTimeout(wsConnect,3000);
     }
