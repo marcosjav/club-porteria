@@ -92,7 +92,10 @@ function addClient(client){
     }
     $('#enter').html(client.message);
 
-    convertImage(client.photo.data);
+    if (client.photo && client.photo.data)
+        convertImage(client.photo.data);
+    else
+        noProfilePicture();
 
     $('#msg-card').hide();
 
@@ -169,6 +172,17 @@ function convertImage(bytesArray){
     //console.log(base64);
     $('#photo').css({
         'background-image':'url("data:image/png;base64,' + base64 + '")',
+        'background-repeat':'no-repeat',
+        'background-size':'contain',
+        'background-position':'center',
+        'width':'350px',
+        'height':'350px'
+        });
+}
+
+function noProfilePicture() {
+    $('#photo').css({
+        'background-image':'url("img/logo_azul.jpg")',
         'background-repeat':'no-repeat',
         'background-size':'contain',
         'background-position':'center',
