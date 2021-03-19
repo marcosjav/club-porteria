@@ -26,7 +26,12 @@ const minLevel = 0; // 0 = DEBUG, 1 = ERROR
 var fs = global.get('fsModule');
 
 // read the json array object
-var jsonArray = JSON.parse(fs.readFileSync(filename).toString());
+var jsonArray; 
+try {
+    jsonArray = JSON.parse(fs.readFileSync(filename).toString());
+} catch(e) {
+    jsonArray = [];
+}
 
 // check the message level
 let level = 0;
