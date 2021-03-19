@@ -35,7 +35,7 @@ try {
 
 // check the message level
 let level = 0;
-if ((!msg.payload.client || msg.payload.client === '') || (!msg.payload.client[0]["Numero"] || msg.payload.client[0]["Numero"] === ''))
+if ((!msg.client || msg.client === '') || (!msg.client[0]["Numero"] || msg.client[0]["Numero"] === ''))
     level = 1;
 
 if (minLevel <= level){
@@ -45,7 +45,7 @@ if (minLevel <= level){
     if (msg.payload.dni != '0') dni = msg.payload.dni;
     if (msg.payload.rfid != '0') rfid = msg.payload.rfid.rfid;
     if (msg.payload.member != '0') member = msg.payload.member;
-    response = msg.payload.client + '';
+    response = msg.client + '';
 
     // create metrics object
     var jsonValue = {
