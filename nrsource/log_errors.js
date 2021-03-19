@@ -46,7 +46,7 @@ if (minLevel <= level){
     if (msg.payload.dni != '0') dni = msg.payload.dni;
     if (msg.payload.rfid != '0') rfid = msg.payload.rfid.rfid;
     if (msg.payload.member != '0') member = msg.payload.member;
-    response = msg.payload.client;
+    response = msg.payload.client + '';
 
     // create metrics object
     var jsonValue = {
