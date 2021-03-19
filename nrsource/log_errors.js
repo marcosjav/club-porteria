@@ -54,7 +54,7 @@ if (minLevel <= level){
         "dni": dni,
         "member": member,
         "level": levelName[level],
-        "response": response
+        "response": JSON.stringify(response)
     };
 
     // save into file
