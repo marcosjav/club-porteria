@@ -34,9 +34,17 @@ try {
 }
 
 // check the message level
-let level = 0;
+let level = 0, jsonClient = {};
 if ((!msg.client || msg.client === '') || (!msg.client[0]["Numero"] || msg.client[0]["Numero"] === ''))
     level = 1;
+
+try{
+    jsonClient['Numero'] = msg.client[0]['Numero'];
+    jsonClient['Socio'] = msg.client[0]['Socio'];
+    jsonClient['DNI'] = msg.client[0]['DNI'];
+} catch(e) {
+    jsonClient['error'] = e;
+}
 
 if (minLevel <= level){
     // get values
@@ -45,11 +53,7 @@ if (minLevel <= level){
     if (msg.payload.dni != '0') dni = msg.payload.dni;
     if (msg.payload.rfid != '0') rfid = msg.payload.rfid.rfid;
     if (msg.payload.member != '0') member = msg.payload.member;
-    try{
-        response = JSON.stringify(msg.client[0]);
-    } catch(e) {
-        response = 'Error parsing string: ' + e;
-    }
+    response = JSON.stringify(jsonClient);
 
     // create metrics object
     var jsonValue = {
