@@ -35,8 +35,7 @@ try {
 
 // check the message level
 let level = 0;
-if ((!msg.payload.client || msg.payload.client === '')
-        || (!msg.payload.client[0]["Numero"] || msg.payload.client[0]["Numero"] === ''))
+if ((!msg.payload.client || msg.payload.client === '') || (!msg.payload.client[0]["Numero"] || msg.payload.client[0]["Numero"] === ''))
     level = 1;
 
 if (minLevel <= level){
