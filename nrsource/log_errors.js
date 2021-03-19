@@ -11,7 +11,7 @@ var h = dt.getHours();
 var m = dt.getMinutes();
 
 // add zeros
-if (M < 10) m = '0' + m;
+if (M < 10) M = '0' + M;
 if (d < 10) d = '0' + d;
 if (h < 10) h = '0' + h;
 if (m < 10) m = '0' + m;
@@ -45,7 +45,11 @@ if (minLevel <= level){
     if (msg.payload.dni != '0') dni = msg.payload.dni;
     if (msg.payload.rfid != '0') rfid = msg.payload.rfid.rfid;
     if (msg.payload.member != '0') member = msg.payload.member;
-    response = msg.client + '';
+    try{
+        response = JSON.stringify(msg.client[0]);
+    } catch(e) {
+        response = 'Error parsing string: ' + e;
+    }
 
     // create metrics object
     var jsonValue = {
@@ -54,7 +58,7 @@ if (minLevel <= level){
         "dni": dni,
         "member": member,
         "level": levelName[level],
-        "response": JSON.stringify(response)
+        "response": response
     };
 
     // save into file
