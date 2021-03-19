@@ -18,7 +18,7 @@ if (m < 10) m = '0' + m;
 
 var dateString = dt.getFullYear() + '-' + M  + '-' + d + '-' + h + ':' + m;
 
-const filename = "/home/pi/www/log-" + dt.getFullYear() + M + d + ".json";
+const filename = "/home/pi/www/logs/log-" + dt.getFullYear() + M + d + ".json";
 const levelName = ['DEBUG', 'ERROR'];
 const minLevel = 0; // 0 = DEBUG, 1 = ERROR
 
