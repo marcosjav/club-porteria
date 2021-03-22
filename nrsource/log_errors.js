@@ -42,6 +42,9 @@ try{
     jsonClient['Numero'] = msg.client[0]['Numero'];
     jsonClient['Socio'] = msg.client[0]['Socio'];
     jsonClient['DNI'] = msg.client[0]['DNI'];
+
+    // member data example collector
+    fs.writeFileSync('/home/pi/www/data_examples/member-' + msg.client[0]['Socio'] + '.json', JSON.stringify(msg.client[0]));
 } catch(e) {
     jsonClient['error'] = e;
 }
