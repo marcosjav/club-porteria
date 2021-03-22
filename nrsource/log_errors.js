@@ -50,9 +50,9 @@ if (minLevel <= level){
     // get values
     let dni = '', rfid = '', member = '', response = '';
 
-    if (msg.payload.dni != '0') dni = msg.payload.dni;
-    if (msg.payload.rfid != '0') rfid = msg.payload.rfid.rfid;
-    if (msg.payload.member != '0') member = msg.payload.member;
+    if (msg.payload.dni != '0') dni = msg.payload.dni + '';
+    if (msg.payload.rfid != '0') rfid = msg.payload.rfid + '';
+    if (msg.payload.member != '0') member = msg.payload.member + '';
     response = JSON.stringify(jsonClient);
 
     // create metrics object
